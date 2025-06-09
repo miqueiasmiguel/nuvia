@@ -21,7 +21,7 @@ model User {
   stripeCustomerId String?
   sessions         Session[]
   accounts         Account[]
-
+  weddingLists     WeddingList[]
   @@unique([email])
   @@map("user")
 }
@@ -69,4 +69,97 @@ model Verification {
   updatedAt  DateTime?
 
   @@map("verification")
+}
+
+model WeddingList {
+  id            String         @id @default(cuid())
+  slug          String         @unique
+  brideName     String
+  groomName     String
+  weddingDate   DateTime?
+  pixKey        String
+  pixType       PixType
+  coverImage    String?
+  message       String?
+  theme         String
+  isActive      Boolean
+  isPublic      Boolean
+  userId        String
+  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  gifts         Gift[]
+  contributions Contribution[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@map("wedding_lists")
+}
+
+model Gift {
+  id            String         @id @default(cuid())
+  name          String
+  description   String?
+  price         Float
+  imageUrl      String?
+  category      String?
+  priority      Priority       @default(MEDIUM)
+  status        GiftStatus     @default(AVAILABLE)
+  weddingListId String
+  weddingList   WeddingList    @relation(fields: [weddingListId], references: [id], onDelete: Cascade)
+  contributions Contribution[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+
+  @@map("gifts")
+}
+
+model Contribution {
+  id               String             @id @default(cuid())
+  contributorName  String
+  contributorEmail String?
+  contributorPhone String?
+  amount           Float
+  message          String?
+  userConfirmed    Boolean
+  confirmedAt      DateTime?
+  proofImageUrl    String?
+  proofFileName    String?
+  status           ContributionStatus
+  pixKey           String
+  pixKeyType       PixType
+  qrCodeData       String?
+  weddingListId    String
+  weddingList      WeddingList        @relation(fields: [weddingListId], references: [id], onDelete: Cascade)
+  giftId           String?
+  gift             Gift?              @relation(fields: [giftId], references: [id], onDelete: SetNull)
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  @@map("contributions")
+}
+
+enum PixType {
+  CPF
+  CNPJ
+  EMAIL
+  PHONE
+  RANDOM_KEY
+}
+
+enum Priority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum GiftStatus {
+  AVAILABLE
+  PARTIALLY_FUNDED
+  FULLY_FUNDED
+}
+
+enum ContributionStatus {
+  PENDING
+  USER_CONFIRMED
+  VERIFIED
+  REJECTED
 }
