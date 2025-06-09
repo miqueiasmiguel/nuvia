@@ -10,7 +10,7 @@
     "prepare": "husky"
   },
   "dependencies": {
-    "@prisma/client": "^6.8.2",
+    "@prisma/client": "^6.9.0",
     "better-auth": "^1.2.8",
     "next": "15.3.3",
     "react": "^19.0.0",
@@ -30,7 +30,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.0",
     "prettier": "^3.5.3",
-    "prisma": "^6.8.2",
+    "prisma": "^6.9.0",
     "tailwindcss": "^4",
     "typescript": "^5"
   }
