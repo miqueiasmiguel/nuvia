@@ -100,9 +100,7 @@ model Gift {
   description   String?
   price         Float
   imageUrl      String?
-  category      String?
-  priority      Priority       @default(MEDIUM)
-  status        GiftStatus     @default(AVAILABLE)
+  status        GiftStatus
   weddingListId String
   weddingList   WeddingList    @relation(fields: [weddingListId], references: [id], onDelete: Cascade)
   contributions Contribution[]
@@ -113,26 +111,26 @@ model Gift {
 }
 
 model Contribution {
-  id               String             @id @default(cuid())
+  id               String      @id @default(cuid())
   contributorName  String
   contributorEmail String?
   contributorPhone String?
   amount           Float
   message          String?
+  isPublic         Boolean
   userConfirmed    Boolean
   confirmedAt      DateTime?
   proofImageUrl    String?
   proofFileName    String?
-  status           ContributionStatus
   pixKey           String
   pixKeyType       PixType
   qrCodeData       String?
   weddingListId    String
-  weddingList      WeddingList        @relation(fields: [weddingListId], references: [id], onDelete: Cascade)
+  weddingList      WeddingList @relation(fields: [weddingListId], references: [id], onDelete: Cascade)
   giftId           String?
-  gift             Gift?              @relation(fields: [giftId], references: [id], onDelete: SetNull)
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
+  gift             Gift?       @relation(fields: [giftId], references: [id], onDelete: SetNull)
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
 
   @@map("contributions")
 }
@@ -145,21 +143,8 @@ enum PixType {
   RANDOM_KEY
 }
 
-enum Priority {
-  LOW
-  MEDIUM
-  HIGH
-}
-
 enum GiftStatus {
   AVAILABLE
   PARTIALLY_FUNDED
   FULLY_FUNDED
-}
-
-enum ContributionStatus {
-  PENDING
-  USER_CONFIRMED
-  VERIFIED
-  REJECTED
 }
