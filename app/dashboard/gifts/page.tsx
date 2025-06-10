@@ -1,5 +1,5 @@
-import { GiftCard } from "@/modules/gifts/components/gift-card";
 import { GiftForm } from "@/modules/gifts/components/gift-form";
+import { PrivateGiftCard } from "@/modules/gifts/components/private-gift-card";
 import { Gift, GiftStatus } from "@/modules/gifts/types";
 
 const gifts: Gift[] = [
@@ -38,7 +38,7 @@ export default function GiftsPage() {
       </div>
       <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
         {gifts.map((gift) => (
-          <GiftCard key={gift.id} gift={gift} />
+          <PrivateGiftCard key={gift.id} gift={gift} />
         ))}
       </div>
     </section>

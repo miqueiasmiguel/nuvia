@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { GiftCard } from "@/modules/gifts/components/gift-card";
+import { PublicGiftCard } from "@/modules/gifts/components/public-gift-card";
 import { Gift, GiftStatus } from "@/modules/gifts/types";
 
 // Mock de dados do casal e presentes
@@ -57,7 +57,7 @@ export default async function ListPage() {
 
       <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
         {gifts.map((gift) => (
-          <GiftCard key={gift.id} gift={gift} />
+          <PublicGiftCard key={gift.id} gift={gift} />
         ))}
       </div>
     </div>
