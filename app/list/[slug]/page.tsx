@@ -3,7 +3,6 @@ import Image from "next/image";
 import { PublicGiftCard } from "@/modules/gifts/components/public-gift-card";
 import { Gift, GiftStatus } from "@/modules/gifts/types";
 
-// Mock de dados do casal e presentes
 const couple = {
   name: "Ana & João",
   imageUrl: "https://source.unsplash.com/200x200/?couple,wedding",
@@ -57,7 +56,9 @@ export default async function ListPage() {
 
       <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
         {gifts.map((gift) => (
-          <PublicGiftCard key={gift.id} gift={gift} />
+          <div key={gift.id}>
+            <PublicGiftCard gift={gift} />
+          </div>
         ))}
       </div>
     </div>
