@@ -5,15 +5,15 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 
 import { Gift } from "../types";
-import { GiftConfirmation } from "./gift-confirmation";
-import { GiftConfirmationForm } from "./gift-confirmation-form";
+import { CommentsDialog } from "./comments-dialog";
+import { GiftDialog } from "./gift-dialog";
 
 export function PublicGiftCard({ gift }: { gift: Gift }) {
   const [pixConfirmed, setPixConfirmed] = useState(false);
-  const [dialogOpen, setDialogOpen] = useState(false);
+  const [giftDialogOpen, setGiftDialogOpen] = useState(false);
+  const [commentsDialogOpen, setCommentsDialogOpen] = useState(false);
 
   return (
     <Card key={gift.id} className="flex flex-row items-center p-2 sm:p-0 sm:flex-col sm:h-full min-h-[84px]">
@@ -36,35 +36,41 @@ export function PublicGiftCard({ gift }: { gift: Gift }) {
         <div className="flex items-center justify-between pt-1 sm:pt-2">
           <span className="font-bold text-primary text-base sm:text-lg">R$ {gift.price.toFixed(2)}</span>
         </div>
+        <span className="text-xs text-zinc-500 mt-1">
+          {gift.giftedCount > 0
+            ? `${gift.giftedCount} pessoa${gift.giftedCount > 1 ? "s" : ""} já presentearam`
+            : "Seja o primeiro a presentear"}
+        </span>
+        {gift.giftedCount > 1 && (
+          <Button
+            size="sm"
+            variant="ghost"
+            className="text-xs px-2 py-1 mt-1"
+            onClick={() => setCommentsDialogOpen(true)}
+          >
+            Visualizar comentários
+          </Button>
+        )}
         <div className="flex gap-1 sm:gap-2">
-          <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-            <DialogTrigger asChild>
-              <Button size="sm" variant="outline" aria-label="Presentear" className="w-full">
-                Presentear
-              </Button>
-            </DialogTrigger>
-            <DialogContent>
-              <DialogHeader>
-                <DialogTitle>Presentear</DialogTitle>
-              </DialogHeader>
-              {pixConfirmed ? (
-                <GiftConfirmationForm
-                  pixValue={gift.price}
-                  giftName={gift.name}
-                  onSuccess={() => {
-                    setDialogOpen(false);
-                  }}
-                  onCancel={() => {
-                    setPixConfirmed(false);
-                  }}
-                />
-              ) : (
-                <GiftConfirmation gift={gift} onConfirmPix={() => setPixConfirmed(true)} />
-              )}
-            </DialogContent>
-          </Dialog>
+          <Button
+            size="sm"
+            variant="outline"
+            aria-label="Presentear"
+            className="w-full"
+            onClick={() => setGiftDialogOpen(true)}
+          >
+            Presentear
+          </Button>
         </div>
       </CardContent>
+      <CommentsDialog commentsDialogOpen={commentsDialogOpen} setCommentsDialogOpen={setCommentsDialogOpen} />
+      <GiftDialog
+        giftDialogOpen={giftDialogOpen}
+        setGiftDialogOpen={setGiftDialogOpen}
+        pixConfirmed={pixConfirmed}
+        setPixConfirmed={setPixConfirmed}
+        gift={gift}
+      />
     </Card>
   );
 }

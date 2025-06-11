@@ -5,6 +5,7 @@ export type Gift = {
   price: number;
   imageUrl: string;
   status: GiftStatus;
+  giftedCount: number;
 };
 
 export enum GiftStatus {

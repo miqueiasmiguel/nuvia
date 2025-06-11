@@ -17,6 +17,7 @@ const gifts: Gift[] = [
     price: 199.9,
     status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?kitchen,pot",
+    giftedCount: 0,
   },
   {
     id: "2",
@@ -25,6 +26,7 @@ const gifts: Gift[] = [
     price: 120.0,
     status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?towel",
+    giftedCount: 1,
   },
   {
     id: "3",
@@ -33,6 +35,7 @@ const gifts: Gift[] = [
     price: 180.0,
     status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?blender",
+    giftedCount: 2,
   },
 ];
 
