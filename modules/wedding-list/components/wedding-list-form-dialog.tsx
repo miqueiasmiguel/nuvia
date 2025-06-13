@@ -22,7 +22,6 @@ export const weddingListSchema = z.object({
   coverImage: z.string().url("URL da imagem inválida").optional(),
   message: z.string().optional(),
   theme: z.string(),
-  slug: z.string(),
 });
 
 type GiftFormValues = z.infer<typeof weddingListSchema>;
@@ -31,7 +30,6 @@ export function WeddingListFormDialog() {
   const form = useForm<GiftFormValues>({
     resolver: zodResolver(weddingListSchema),
     defaultValues: {
-      slug: "",
       brideName: "",
       groomName: "",
       weddingDate: undefined,
