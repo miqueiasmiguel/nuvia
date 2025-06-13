@@ -36,7 +36,7 @@ export default function GiftsPage() {
   return (
     <section className="mb-4">
       <div className="flex items-center justify-between mb-4">
-        <h2 className="text-lg font-semibold">Presentes</h2>
+        <h2 className="text-lg font-semibold">Lista de Presentes</h2>
         <GiftFormDialog />
       </div>
       <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
