@@ -1,4 +1,4 @@
-import { GiftForm } from "@/modules/gifts/components/gift-form";
+import { GiftFormDialog } from "@/modules/gifts/components/gift-form-dialog";
 import { PrivateGiftCard } from "@/modules/gifts/components/private-gift-card";
 import { Gift, GiftStatus } from "@/modules/gifts/types";
 
@@ -37,7 +37,7 @@ export default function GiftsPage() {
     <section className="mb-4">
       <div className="flex items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Presentes</h2>
-        <GiftForm />
+        <GiftFormDialog />
       </div>
       <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
         {gifts.map((gift) => (

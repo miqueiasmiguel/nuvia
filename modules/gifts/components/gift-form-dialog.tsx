@@ -18,7 +18,7 @@ const giftSchema = z.object({
 
 type GiftFormValues = z.infer<typeof giftSchema>;
 
-export function GiftForm() {
+export function GiftFormDialog() {
   const form = useForm<GiftFormValues>({
     resolver: zodResolver(giftSchema),
     defaultValues: {
