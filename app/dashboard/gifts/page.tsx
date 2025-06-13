@@ -1,6 +1,7 @@
 import { GiftFormDialog } from "@/modules/gifts/components/gift-form-dialog";
 import { PrivateGiftCard } from "@/modules/gifts/components/private-gift-card";
 import { Gift, GiftStatus } from "@/modules/gifts/types";
+import { WeddingListFormDialog } from "@/modules/wedding-list/components/wedding-list-form-dialog";
 
 const gifts: Gift[] = [
   {
@@ -35,9 +36,12 @@ const gifts: Gift[] = [
 export default function GiftsPage() {
   return (
     <section className="mb-4">
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-col sm:flex-row items-center justify-between mb-4">
         <h2 className="text-lg font-semibold">Lista de Presentes</h2>
-        <GiftFormDialog />
+        <div className="flex flex-col sm:flex-row gap-2">
+          <WeddingListFormDialog />
+          <GiftFormDialog />
+        </div>
       </div>
       <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
         {gifts.map((gift) => (
