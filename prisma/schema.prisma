@@ -82,8 +82,6 @@ model WeddingList {
   coverImage    String?
   message       String?
   theme         String
-  isActive      Boolean
-  isPublic      Boolean
   userId        String
   user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
   gifts         Gift[]
