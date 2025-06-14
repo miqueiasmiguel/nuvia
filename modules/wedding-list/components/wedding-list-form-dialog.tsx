@@ -12,6 +12,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { PixType } from "../types";
+import { CircleImagePicker } from "./circle-image-picker";
 
 export const weddingListSchema = z.object({
   brideName: z.string(),
@@ -119,7 +120,7 @@ export function WeddingListFormDialog() {
                 <FormItem>
                   <FormLabel>Imagem de capa</FormLabel>
                   <FormControl>
-                    <Input placeholder="https://example.com/image.jpg" {...field} />
+                    <CircleImagePicker value={field.value} onChange={field.onChange} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
