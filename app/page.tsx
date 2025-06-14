@@ -19,7 +19,7 @@ export default function LandingPage() {
           Crie uma experiência inesquecível para seus convidados e gerencie todos os presentes do seu grande dia em um
           só lugar.
         </p>
-        <Link href="/dashboard" className="mt-6">
+        <Link href="/login" className="mt-6">
           <button className="bg-primary text-primary-foreground px-6 py-3 rounded-[var(--radius)] font-semibold shadow hover:brightness-95 transition">
             Criar minha lista
           </button>
