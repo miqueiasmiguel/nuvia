@@ -98,7 +98,6 @@ model Gift {
   description   String?
   price         Float
   imageUrl      String?
-  status        GiftStatus
   weddingListId String
   weddingList   WeddingList    @relation(fields: [weddingListId], references: [id], onDelete: Cascade)
   contributions Contribution[]
@@ -139,10 +138,4 @@ enum PixType {
   EMAIL
   PHONE
   RANDOM_KEY
-}
-
-enum GiftStatus {
-  AVAILABLE
-  PARTIALLY_FUNDED
-  FULLY_FUNDED
 }

@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import { PublicGiftCard } from "@/modules/gifts/components/public-gift-card";
-import { Gift, GiftStatus } from "@/modules/gifts/types";
+import { Gift } from "@/modules/gifts/types";
 
 const couple = {
   name: "Ana & João",
@@ -15,7 +15,6 @@ const gifts: Gift[] = [
     name: "Panela Elétrica",
     description: "Ideal para preparar arroz e legumes a vapor.",
     price: 199.9,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?kitchen,pot",
     giftedCount: 0,
   },
@@ -24,7 +23,6 @@ const gifts: Gift[] = [
     name: "Jogo de Toalhas",
     description: "Toalhas macias para o casal.",
     price: 120.0,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?towel",
     giftedCount: 1,
   },
@@ -33,7 +31,6 @@ const gifts: Gift[] = [
     name: "Liquidificador",
     description: "Perfeito para sucos e vitaminas.",
     price: 180.0,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?blender",
     giftedCount: 2,
   },
@@ -42,7 +39,6 @@ const gifts: Gift[] = [
     name: "Aparelho de Jantar",
     description: "Conjunto elegante para 6 pessoas.",
     price: 350.0,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?dinner,set",
     giftedCount: 0,
   },
@@ -51,7 +47,6 @@ const gifts: Gift[] = [
     name: "Faqueiro Inox",
     description: "Faqueiro completo para todas as ocasiões.",
     price: 220.0,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?cutlery",
     giftedCount: 3,
   },
@@ -60,7 +55,6 @@ const gifts: Gift[] = [
     name: "Jogo de Copos",
     description: "Copos de vidro para sucos e refrigerantes.",
     price: 90.0,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?glass,cups",
     giftedCount: 0,
   },
@@ -69,7 +63,6 @@ const gifts: Gift[] = [
     name: "Edredom Queen Size",
     description: "Edredom macio e quentinho para o casal.",
     price: 260.0,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?bed,blanket",
     giftedCount: 1,
   },
@@ -78,7 +71,6 @@ const gifts: Gift[] = [
     name: "Aspirador de Pó",
     description: "Facilite a limpeza da casa.",
     price: 299.0,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?vacuum,cleaner",
     giftedCount: 0,
   },
@@ -87,7 +79,6 @@ const gifts: Gift[] = [
     name: "Cafeteira Elétrica",
     description: "Para começar o dia com um café fresquinho.",
     price: 159.0,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?coffee,machine",
     giftedCount: 2,
   },
@@ -96,7 +87,6 @@ const gifts: Gift[] = [
     name: "Jogo de Panelas",
     description: "Panelas antiaderentes para facilitar o preparo das refeições.",
     price: 399.0,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?cookware,set",
     giftedCount: 0,
   },

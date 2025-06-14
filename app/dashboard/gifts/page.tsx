@@ -1,6 +1,6 @@
 import { GiftFormDialog } from "@/modules/gifts/components/gift-form-dialog";
 import { PrivateGiftCard } from "@/modules/gifts/components/private-gift-card";
-import { Gift, GiftStatus } from "@/modules/gifts/types";
+import { Gift } from "@/modules/gifts/types";
 import { WeddingListFormDialog } from "@/modules/wedding-list/components/wedding-list-form-dialog";
 
 const gifts: Gift[] = [
@@ -9,7 +9,6 @@ const gifts: Gift[] = [
     name: "Panela Elétrica",
     description: "Ideal para preparar arroz e legumes a vapor.",
     price: 199.9,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?kitchen,pot",
     giftedCount: 0,
   },
@@ -18,7 +17,6 @@ const gifts: Gift[] = [
     name: "Jogo de Toalhas",
     description: "Toalhas macias para o casal.",
     price: 120.0,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?towel",
     giftedCount: 1,
   },
@@ -27,7 +25,6 @@ const gifts: Gift[] = [
     name: "Liquidificador",
     description: "Perfeito para sucos e vitaminas.",
     price: 180.0,
-    status: GiftStatus.AVAILABLE,
     imageUrl: "https://source.unsplash.com/400x300/?blender",
     giftedCount: 2,
   },

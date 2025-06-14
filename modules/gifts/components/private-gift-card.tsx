@@ -1,7 +1,6 @@
 import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
 
-import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
@@ -24,9 +23,6 @@ export function PrivateGiftCard({ gift }: { gift: Gift }) {
           <h3 className="font-semibold text-sm sm:text-base truncate" title={gift.name}>
             {gift.name}
           </h3>
-          <Badge variant="default" className="text-[10px] sm:text-xs px-2 py-0.5">
-            {gift.status.toLowerCase()}
-          </Badge>
         </div>
         <p className="text-xs sm:text-sm text-zinc-500 line-clamp-2">{gift.description}</p>
         <div className="flex items-center justify-between pt-1 sm:pt-2">
