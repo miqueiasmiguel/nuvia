@@ -35,7 +35,7 @@ export default function GiftsPage() {
     <section className="mb-4">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-4 w-full">
         <h2 className="text-lg font-semibold break-words">Lista de Presentes</h2>
-        <div className="flex flex-col gap-2 w-full sm:w-auto sm:flex-row sm:gap-2">
+        <div className="flex flex-row gap-2 w-full justify-end sm:w-auto">
           <WeddingListFormDialog />
           <GiftFormDialog />
         </div>
