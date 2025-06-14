@@ -13,11 +13,13 @@ export function GiftConfirmation({
   pixCode = "00020126360014BR.GOV.BCB.PIX0114+551199999999520400005303986540419.905802BR5920Ana e João6009Sao Paulo62070503***6304B14F",
   onCopyPix,
   onConfirmPix,
+  theme,
 }: {
   gift: { name: string; price: number; imageUrl?: string };
   pixCode?: string;
   onCopyPix?: () => void;
   onConfirmPix?: () => void;
+  theme?: string;
 }) {
   const [copied, setCopied] = useState(false);
 
@@ -29,7 +31,10 @@ export function GiftConfirmation({
   }
 
   return (
-    <div className="flex flex-col items-center gap-4 py-2">
+    <div
+      className={`flex flex-col items-center gap-4 py-2${theme ? ` theme-${theme}` : ""}`}
+      style={theme ? { fontFamily: "var(--font-family)" } : undefined}
+    >
       <div className="flex flex-col items-center gap-2">
         {gift.imageUrl && (
           <Image

@@ -92,9 +92,15 @@ const gifts: Gift[] = [
   },
 ];
 
+// Simulação de escolha dinâmica de tema (pode vir do banco futuramente)
+const theme = "classico";
+
 export default async function ListPage() {
   return (
-    <div className="max-w-3xl mx-auto py-8 px-2 flex flex-col gap-8">
+    <div
+      className={`theme-${theme} max-w-3xl mx-auto py-8 px-2 flex flex-col gap-8`}
+      style={{ fontFamily: "var(--font-family)" }}
+    >
       <div className="flex flex-col items-center gap-3 text-center">
         <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary shadow">
           <Image
@@ -113,7 +119,7 @@ export default async function ListPage() {
       <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
         {gifts.map((gift) => (
           <div key={gift.id}>
-            <PublicGiftCard gift={gift} />
+            <PublicGiftCard gift={gift} theme={theme} />
           </div>
         ))}
       </div>

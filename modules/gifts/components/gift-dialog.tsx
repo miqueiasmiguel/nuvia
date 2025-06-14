@@ -10,16 +10,21 @@ export function GiftDialog({
   pixConfirmed,
   setPixConfirmed,
   gift,
+  theme,
 }: {
   giftDialogOpen: boolean;
   setGiftDialogOpen: (open: boolean) => void;
   pixConfirmed: boolean;
   setPixConfirmed: (confirmed: boolean) => void;
   gift: Gift;
+  theme?: string;
 }) {
   return (
     <Dialog open={giftDialogOpen} onOpenChange={setGiftDialogOpen}>
-      <DialogContent>
+      <DialogContent
+        className={theme ? `theme-${theme}` : undefined}
+        style={theme ? { fontFamily: "var(--font-family)" } : undefined}
+      >
         <DialogHeader>
           <DialogTitle>Presentear</DialogTitle>
         </DialogHeader>
@@ -33,9 +38,10 @@ export function GiftDialog({
             onCancel={() => {
               setPixConfirmed(false);
             }}
+            theme={theme}
           />
         ) : (
-          <GiftConfirmation gift={gift} onConfirmPix={() => setPixConfirmed(true)} />
+          <GiftConfirmation gift={gift} onConfirmPix={() => setPixConfirmed(true)} theme={theme} />
         )}
       </DialogContent>
     </Dialog>

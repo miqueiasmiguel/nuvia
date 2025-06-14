@@ -120,3 +120,31 @@
     @apply bg-background text-foreground;
   }
 }
+
+.theme-classico {
+  --primary: #bfa980;
+  --primary-foreground: #fff;
+  --background: #f8f5f0;
+  --card: #fff;
+  --card-foreground: #bfa980;
+  --radius: 0.5rem;
+  --font-family: 'Playfair Display', serif;
+}
+.theme-moderno {
+  --primary: #4f46e5;
+  --primary-foreground: #fff;
+  --background: #f3f4f6;
+  --card: #fff;
+  --card-foreground: #4f46e5;
+  --radius: 1.25rem;
+  --font-family: 'Montserrat', sans-serif;
+}
+.theme-floral {
+  --primary: #e91e63;
+  --primary-foreground: #fff;
+  --background: #fff0f6;
+  --card: #fff;
+  --card-foreground: #e91e63;
+  --radius: 1rem;
+  --font-family: 'Dancing Script', cursive;
+}

@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button";
 type CroppedAreaPixels = { width: number; height: number; x: number; y: number };
 
 type Props = {
-  value?: string; // base64 ou url
+  value?: string;
   onChange: (cropped: string) => void;
 };
 

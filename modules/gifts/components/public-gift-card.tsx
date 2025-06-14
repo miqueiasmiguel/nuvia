@@ -10,7 +10,7 @@ import { Gift } from "../types";
 import { CommentsDialog } from "./comments-dialog";
 import { GiftDialog } from "./gift-dialog";
 
-export function PublicGiftCard({ gift }: { gift: Gift }) {
+export function PublicGiftCard({ gift, theme }: { gift: Gift; theme: string }) {
   const [pixConfirmed, setPixConfirmed] = useState(false);
   const [giftDialogOpen, setGiftDialogOpen] = useState(false);
   const [commentsDialogOpen, setCommentsDialogOpen] = useState(false);
@@ -70,6 +70,7 @@ export function PublicGiftCard({ gift }: { gift: Gift }) {
         pixConfirmed={pixConfirmed}
         setPixConfirmed={setPixConfirmed}
         gift={gift}
+        theme={theme}
       />
     </Card>
   );

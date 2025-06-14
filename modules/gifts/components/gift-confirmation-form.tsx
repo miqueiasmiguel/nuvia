@@ -27,11 +27,13 @@ export function GiftConfirmationForm({
   giftName,
   onSuccess,
   onCancel,
+  theme,
 }: {
   pixValue: number;
   giftName: string;
   onSuccess: () => void;
   onCancel: () => void;
+  theme?: string;
 }) {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const form = useForm<ConfirmationFormValues>({
@@ -53,7 +55,11 @@ export function GiftConfirmationForm({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={`space-y-4${theme ? ` theme-${theme}` : ""}`}
+        style={theme ? { fontFamily: "var(--font-family)" } : undefined}
+      >
         <FormField
           control={form.control}
           name="name"

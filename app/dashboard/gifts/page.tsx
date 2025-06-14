@@ -30,9 +30,11 @@ const gifts: Gift[] = [
   },
 ];
 
+const theme = "classico";
+
 export default function GiftsPage() {
   return (
-    <section className="mb-4">
+    <section className={`theme-${theme} mb-4`} style={{ fontFamily: "var(--font-family)" }}>
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-4 w-full">
         <h2 className="text-lg font-semibold break-words">Lista de Presentes</h2>
         <div className="flex flex-row gap-2 w-full justify-end sm:w-auto">
