@@ -4,7 +4,7 @@ import { auth } from "@/lib/auth";
 import { GiftsListActions } from "@/modules/gifts/components/gifts-list-actions";
 import { PrivateGiftCard } from "@/modules/gifts/components/private-gift-card";
 import { Gift } from "@/modules/gifts/types";
-import { getWeddingListByUserId } from "@/modules/wedding-list/widding-list.actions";
+import { getWeddingListByUserId } from "@/modules/wedding-list/actions";
 
 const gifts: Gift[] = [
   {

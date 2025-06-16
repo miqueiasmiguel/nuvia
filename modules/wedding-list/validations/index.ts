@@ -1,6 +1,6 @@
 import z from "zod";
 
-import { PixType } from "./types";
+import { PixType } from "../types";
 
 export const weddingSettingsSchema = z.object({
   brideName: z.string(),

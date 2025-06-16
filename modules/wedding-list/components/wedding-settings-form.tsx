@@ -12,9 +12,9 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { createWeddingList, updateWeddingList } from "../actions";
 import { PixType, WeddingList } from "../types";
-import { WeddingSettingsFormValues, weddingSettingsSchema } from "../wedding-list.validations";
-import { createWeddingList, updateWeddingList } from "../widding-list.actions";
+import { WeddingSettingsFormValues, weddingSettingsSchema } from "../validations";
 import { CircleImagePicker } from "./circle-image-picker";
 
 interface WeddingSettingsFormProps {

@@ -1,7 +1,7 @@
 import { prisma } from "@/lib/prisma";
 
-import { PixType, WeddingList } from "./types";
-import { WeddingSettingsFormValues } from "./wedding-list.validations";
+import { PixType, WeddingList } from "../types";
+import { WeddingSettingsFormValues } from "../validations";
 
 export class WeddingListService {
   static async getWeddingListByUserId(userId: string): Promise<WeddingList> {

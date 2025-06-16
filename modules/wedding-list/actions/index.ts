@@ -4,8 +4,8 @@ import { headers } from "next/headers";
 
 import { auth } from "@/lib/auth";
 
-import { WeddingListService } from "./wedding-list.service";
-import { WeddingSettingsFormValues } from "./wedding-list.validations";
+import { WeddingListService } from "../services/wedding-list.service";
+import { WeddingSettingsFormValues } from "../validations";
 
 export async function getWeddingListByUserId(userId: string) {
   return await WeddingListService.getWeddingListByUserId(userId);
