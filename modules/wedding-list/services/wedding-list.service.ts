@@ -4,12 +4,32 @@ import { PixType, WeddingList } from "../types";
 import { WeddingSettingsFormValues } from "../validations";
 
 export class WeddingListService {
-  static async getWeddingListByUserId(userId: string): Promise<WeddingList> {
-    const weddingList = await prisma.weddingList.findFirst({
+  static async getWeddingListById(id: string): Promise<WeddingList> {
+    const weddingList = await prisma.weddingList.findUnique({
       where: {
-        user: {
-          id: userId,
-        },
+        id,
+      },
+    });
+
+    if (!weddingList) {
+      throw new Error("Wedding list not found");
+    }
+
+    return {
+      ...weddingList,
+      weddingDate: weddingList.weddingDate ?? undefined,
+      pixKey: weddingList.pixKey ?? undefined,
+      pixType: weddingList.pixType as PixType,
+      coverImage: weddingList.coverImage ?? undefined,
+      message: weddingList.message ?? undefined,
+      theme: weddingList.theme ?? undefined,
+    };
+  }
+
+  static async getWeddingListBySlug(slug: string): Promise<WeddingList> {
+    const weddingList = await prisma.weddingList.findUnique({
+      where: {
+        slug,
       },
     });
 

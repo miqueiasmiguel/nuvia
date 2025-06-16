@@ -7,8 +7,12 @@ import { auth } from "@/lib/auth";
 import { WeddingListService } from "../services/wedding-list.service";
 import { WeddingSettingsFormValues } from "../validations";
 
-export async function getWeddingListByUserId(userId: string) {
-  return await WeddingListService.getWeddingListByUserId(userId);
+export async function getWeddingListById(id: string) {
+  return await WeddingListService.getWeddingListById(id);
+}
+
+export async function getWeddingListBySlug(slug: string) {
+  return await WeddingListService.getWeddingListBySlug(slug);
 }
 
 export async function createWeddingList(data: WeddingSettingsFormValues) {

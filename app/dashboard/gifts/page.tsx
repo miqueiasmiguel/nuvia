@@ -3,7 +3,7 @@ import { headers } from "next/headers";
 import { auth } from "@/lib/auth";
 import { getGiftsByWeddingListId } from "@/modules/gifts/actions";
 import { PrivateGiftCard } from "@/modules/gifts/components/private-gift-card";
-import { getWeddingListByUserId } from "@/modules/wedding-list/actions";
+import { getWeddingListById } from "@/modules/wedding-list/actions";
 import { WeddingListActions } from "@/modules/wedding-list/components/wedding-list-actions";
 
 export default async function GiftsPage() {
@@ -15,7 +15,7 @@ export default async function GiftsPage() {
     throw new Error("Unauthorized");
   }
 
-  const weddingList = await getWeddingListByUserId(session.user.id);
+  const weddingList = await getWeddingListById(session.user.weddingListId ?? "");
   const gifts = await getGiftsByWeddingListId(weddingList.id);
   const theme = weddingList.theme ?? "classico";
 

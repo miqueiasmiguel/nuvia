@@ -1,6 +1,6 @@
 "use client";
 
-import { Gift, Globe, HandCoins, LayoutDashboard, Settings } from "lucide-react";
+import { Gift, HandCoins, LayoutDashboard, Settings } from "lucide-react";
 import Link from "next/link";
 
 import {
@@ -23,11 +23,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: "Visão Geral",
         url: "/dashboard",
         icon: LayoutDashboard,
-      },
-      {
-        title: "Lista Pública",
-        url: "/list/seu-slug",
-        icon: Globe,
       },
       {
         title: "Lista de Presentes",

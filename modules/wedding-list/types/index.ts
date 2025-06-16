@@ -16,4 +16,5 @@ export type WeddingList = {
   coverImage?: string;
   message?: string;
   theme?: string;
+  slug: string;
 };
