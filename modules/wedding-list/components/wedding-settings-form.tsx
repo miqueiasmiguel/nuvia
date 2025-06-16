@@ -17,7 +17,12 @@ import { WeddingSettingsFormValues, weddingSettingsSchema } from "../wedding-lis
 import { createWeddingList, updateWeddingList } from "../widding-list.actions";
 import { CircleImagePicker } from "./circle-image-picker";
 
-export function WeddingSettingsForm({ weddingList }: { weddingList?: WeddingList }) {
+interface WeddingSettingsFormProps {
+  weddingList?: WeddingList;
+  onSuccess?: () => void;
+}
+
+export function WeddingSettingsForm({ weddingList, onSuccess }: WeddingSettingsFormProps) {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const router = useRouter();
@@ -47,6 +52,8 @@ export function WeddingSettingsForm({ weddingList }: { weddingList?: WeddingList
     } else {
       router.push("/dashboard/gifts");
     }
+
+    onSuccess?.();
 
     toast.success("Lista de presentes salva com sucesso");
   }

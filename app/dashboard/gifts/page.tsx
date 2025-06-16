@@ -1,10 +1,9 @@
 import { headers } from "next/headers";
 
 import { auth } from "@/lib/auth";
-import { GiftFormDialog } from "@/modules/gifts/components/gift-form-dialog";
+import { GiftsListActions } from "@/modules/gifts/components/gifts-list-actions";
 import { PrivateGiftCard } from "@/modules/gifts/components/private-gift-card";
 import { Gift } from "@/modules/gifts/types";
-import { WeddingListFormDialog } from "@/modules/wedding-list/components/wedding-settings-form-dialog";
 import { getWeddingListByUserId } from "@/modules/wedding-list/widding-list.actions";
 
 const gifts: Gift[] = [
@@ -51,10 +50,7 @@ export default async function GiftsPage() {
     <section className={`theme-${theme} mb-4`} style={{ fontFamily: "var(--font-family)" }}>
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-4 w-full">
         <h2 className="text-lg font-semibold break-words">Lista de Presentes</h2>
-        <div className="flex flex-row gap-2 w-full justify-end sm:w-auto">
-          <WeddingListFormDialog weddingList={weddingList} />
-          <GiftFormDialog />
-        </div>
+        <GiftsListActions weddingList={weddingList} />
       </div>
       <div className="flex flex-col gap-3 sm:grid sm:grid-cols-2 lg:grid-cols-3 sm:gap-6">
         {gifts.map((gift) => (
