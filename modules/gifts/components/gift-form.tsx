@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { SquareImagePicker } from "@/modules/gifts/components/square-image-picker";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { createGift, updateGift } from "../actions";
@@ -96,9 +97,9 @@ export function GiftForm({ weddingListId, gift, onSuccess }: GiftFormProps) {
           name="image"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>URL da imagem</FormLabel>
+              <FormLabel>Imagem do presente</FormLabel>
               <FormControl>
-                <Input placeholder="https://example.com/image.jpg" {...field} />
+                <SquareImagePicker value={field.value} onChange={field.onChange} />
               </FormControl>
               <FormMessage />
             </FormItem>
