@@ -12,31 +12,35 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { PixType } from "../types";
+import { PixType, WeddingList } from "../types";
 import { WeddingSettingsFormValues, weddingSettingsSchema } from "../wedding-list.validations";
-import { createWeddingList } from "../widding-list.actions";
+import { createWeddingList, updateWeddingList } from "../widding-list.actions";
 import { CircleImagePicker } from "./circle-image-picker";
 
-export function WeddingSettingsForm() {
+export function WeddingSettingsForm({ weddingList }: { weddingList?: WeddingList }) {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl");
   const router = useRouter();
   const form = useForm<WeddingSettingsFormValues>({
     resolver: zodResolver(weddingSettingsSchema),
     defaultValues: {
-      brideName: "",
-      groomName: "",
-      weddingDate: "",
-      message: "",
-      coverImage: "",
-      pixKey: "",
-      pixType: undefined,
-      theme: undefined,
+      brideName: weddingList?.brideName ?? "",
+      groomName: weddingList?.groomName ?? "",
+      weddingDate: weddingList?.weddingDate?.toISOString().split("T")[0] ?? "",
+      message: weddingList?.message ?? "",
+      coverImage: weddingList?.coverImage ?? "",
+      pixKey: weddingList?.pixKey ?? "",
+      pixType: weddingList?.pixType ?? undefined,
+      theme: weddingList?.theme ?? undefined,
     },
   });
 
   async function onSubmit(data: WeddingSettingsFormValues) {
-    await createWeddingList(data);
+    if (weddingList) {
+      await updateWeddingList(weddingList.id, data);
+    } else {
+      await createWeddingList(data);
+    }
 
     if (callbackUrl) {
       router.push(callbackUrl);

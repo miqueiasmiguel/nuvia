@@ -1,8 +1,33 @@
 import { prisma } from "@/lib/prisma";
 
+import { PixType, WeddingList } from "./types";
 import { WeddingSettingsFormValues } from "./wedding-list.validations";
 
 export class WeddingListService {
+  static async getWeddingListByUserId(userId: string): Promise<WeddingList> {
+    const weddingList = await prisma.weddingList.findFirst({
+      where: {
+        user: {
+          id: userId,
+        },
+      },
+    });
+
+    if (!weddingList) {
+      throw new Error("Wedding list not found");
+    }
+
+    return {
+      ...weddingList,
+      weddingDate: weddingList.weddingDate ?? undefined,
+      pixKey: weddingList.pixKey ?? undefined,
+      pixType: weddingList.pixType as PixType,
+      coverImage: weddingList.coverImage ?? undefined,
+      message: weddingList.message ?? undefined,
+      theme: weddingList.theme ?? undefined,
+    };
+  }
+
   static async createWeddingList(data: WeddingSettingsFormValues, userId: string) {
     return await prisma.weddingList.create({
       data: {
@@ -14,6 +39,18 @@ export class WeddingListService {
             id: userId,
           },
         },
+      },
+    });
+  }
+
+  static async updateWeddingList(id: string, data: WeddingSettingsFormValues) {
+    return await prisma.weddingList.update({
+      where: {
+        id,
+      },
+      data: {
+        ...data,
+        weddingDate: data.weddingDate ? new Date(data.weddingDate) : undefined,
       },
     });
   }
