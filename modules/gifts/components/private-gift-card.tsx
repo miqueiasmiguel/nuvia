@@ -1,12 +1,18 @@
+"use client";
+
 import { Pencil, Trash2 } from "lucide-react";
 import Image from "next/image";
+import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 
 import { Gift } from "../types";
+import { GiftFormDialog } from "./gift-form-dialog";
 
 export function PrivateGiftCard({ gift }: { gift: Gift }) {
+  const [isGiftFormOpen, setIsGiftFormOpen] = useState(false);
+
   return (
     <Card key={gift.id} className="flex flex-row items-center p-2 sm:p-0 sm:flex-col sm:h-full min-h-[84px]">
       {gift.image && (
@@ -24,7 +30,13 @@ export function PrivateGiftCard({ gift }: { gift: Gift }) {
         <div className="flex items-center justify-between pt-1 sm:pt-2">
           <span className="font-bold text-primary text-base sm:text-lg">R$ {gift.price.toFixed(2)}</span>
           <div className="flex gap-1 sm:gap-2">
-            <Button size="icon" variant="outline" aria-label="Editar" className="w-7 h-7 sm:w-8 sm:h-8">
+            <Button
+              size="icon"
+              variant="outline"
+              aria-label="Editar"
+              className="w-7 h-7 sm:w-8 sm:h-8"
+              onClick={() => setIsGiftFormOpen(true)}
+            >
               <Pencil className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </Button>
             <Button size="icon" variant="destructive" aria-label="Excluir" className="w-7 h-7 sm:w-8 sm:h-8">
@@ -33,6 +45,12 @@ export function PrivateGiftCard({ gift }: { gift: Gift }) {
           </div>
         </div>
       </CardContent>
+      <GiftFormDialog
+        weddingListId={gift.weddingListId}
+        gift={gift}
+        isOpen={isGiftFormOpen}
+        onOpenChange={setIsGiftFormOpen}
+      />
     </Card>
   );
 }

@@ -24,10 +24,10 @@ export function GiftForm({ weddingListId, gift, onSuccess }: GiftFormProps) {
   const form = useForm<GiftFormValues>({
     resolver: zodResolver(giftSchema),
     defaultValues: {
-      name: "",
-      description: "",
-      price: 0,
-      image: "",
+      name: gift?.name ?? "",
+      description: gift?.description ?? "",
+      price: gift?.price ?? 0,
+      image: gift?.image ?? "",
     },
   });
 

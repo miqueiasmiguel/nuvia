@@ -5,4 +5,5 @@ export type Gift = {
   price: number;
   image: string;
   giftedCount: number;
+  weddingListId: string;
 };
