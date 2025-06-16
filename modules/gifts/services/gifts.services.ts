@@ -10,6 +10,9 @@ export class GiftsService {
       include: {
         contributions: true,
       },
+      orderBy: {
+        createdAt: "desc",
+      },
     });
 
     return gifts.map((gift) => ({
