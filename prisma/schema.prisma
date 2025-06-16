@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id               String        @id
+  id               String       @id
   name             String
   email            String
   emailVerified    Boolean
@@ -19,9 +19,10 @@ model User {
   createdAt        DateTime
   updatedAt        DateTime
   stripeCustomerId String?
+  weddingListId    String?      @unique
+  weddingList      WeddingList? @relation(fields: [weddingListId], references: [id])
   sessions         Session[]
   accounts         Account[]
-  weddingLists     WeddingList[]
 
   @@unique([email])
   @@map("user")
@@ -83,8 +84,7 @@ model WeddingList {
   coverImage    String?
   message       String?
   theme         String
-  userId        String
-  user          User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user          User?
   gifts         Gift[]
   contributions Contribution[]
   createdAt     DateTime       @default(now())

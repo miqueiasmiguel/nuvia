@@ -1,7 +1,7 @@
 import { GiftFormDialog } from "@/modules/gifts/components/gift-form-dialog";
 import { PrivateGiftCard } from "@/modules/gifts/components/private-gift-card";
 import { Gift } from "@/modules/gifts/types";
-import { WeddingListFormDialog } from "@/modules/wedding-list/components/wedding-list-form-dialog";
+import { WeddingListFormDialog } from "@/modules/wedding-list/components/wedding-settings-form-dialog";
 
 const gifts: Gift[] = [
   {

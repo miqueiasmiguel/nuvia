@@ -84,10 +84,24 @@ export function CircleImagePicker({ value, onChange }: Props) {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <input ref={inputRef} type="file" accept="image/*" className="hidden" onChange={handleFile} />
+      <input
+        ref={inputRef}
+        type="file"
+        accept="image/*"
+        className="hidden"
+        onChange={handleFile}
+        onClick={(e) => e.stopPropagation()}
+      />
       <div
         className="w-24 h-24 rounded-full bg-zinc-100 overflow-hidden flex items-center justify-center cursor-pointer border relative"
-        onClick={() => inputRef.current?.click()}
+        onClick={(e) => {
+          e.preventDefault();
+          inputRef.current?.click();
+        }}
+        onKeyDown={(e) => e.preventDefault()}
+        tabIndex={0}
+        role="button"
+        aria-label="Selecionar imagem"
       >
         {value ? (
           <img src={value} alt="Imagem selecionada" className="w-full h-full object-cover" />
