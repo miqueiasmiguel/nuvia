@@ -7,9 +7,9 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { WeddingSettingsForm } from "@/modules/wedding-list/components/wedding-settings-form";
 import { WeddingList } from "@/modules/wedding-list/types";
 
-import { GiftForm } from "./gift-form";
+import { GiftForm } from "../../gifts/components/gift-form";
 
-export function GiftsListActions({ weddingList }: { weddingList: WeddingList }) {
+export function WeddingListActions({ weddingList }: { weddingList: WeddingList }) {
   const [isWeddingListFormOpen, setIsWeddingListFormOpen] = useState(false);
   const [isGiftFormOpen, setIsGiftFormOpen] = useState(false);
 
@@ -20,7 +20,7 @@ export function GiftsListActions({ weddingList }: { weddingList: WeddingList }) 
         isOpen={isWeddingListFormOpen}
         onOpenChange={setIsWeddingListFormOpen}
       />
-      <GiftFormDialog isOpen={isGiftFormOpen} onOpenChange={setIsGiftFormOpen} />
+      <GiftFormDialog weddingListId={weddingList.id} isOpen={isGiftFormOpen} onOpenChange={setIsGiftFormOpen} />
     </div>
   );
 }
@@ -49,7 +49,15 @@ function WeddingListFormDialog({
   );
 }
 
-export function GiftFormDialog({ isOpen, onOpenChange }: { isOpen: boolean; onOpenChange: (open: boolean) => void }) {
+export function GiftFormDialog({
+  weddingListId,
+  isOpen,
+  onOpenChange,
+}: {
+  weddingListId: string;
+  isOpen: boolean;
+  onOpenChange: (open: boolean) => void;
+}) {
   return (
     <Dialog open={isOpen} onOpenChange={onOpenChange}>
       <DialogTrigger asChild>
@@ -59,7 +67,7 @@ export function GiftFormDialog({ isOpen, onOpenChange }: { isOpen: boolean; onOp
         <DialogHeader>
           <DialogTitle>Novo Presente</DialogTitle>
         </DialogHeader>
-        <GiftForm onSuccess={() => onOpenChange(false)} />
+        <GiftForm weddingListId={weddingListId} onSuccess={() => onOpenChange(false)} />
       </DialogContent>
     </Dialog>
   );

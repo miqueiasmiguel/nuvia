@@ -3,6 +3,6 @@ export type Gift = {
   name: string;
   description: string;
   price: number;
-  imageUrl: string;
+  image: string;
   giftedCount: number;
 };

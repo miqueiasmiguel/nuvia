@@ -98,7 +98,7 @@ model Gift {
   name          String
   description   String?
   price         Float
-  imageUrl      String?
+  image         String?
   weddingListId String
   weddingList   WeddingList    @relation(fields: [weddingListId], references: [id], onDelete: Cascade)
   contributions Contribution[]

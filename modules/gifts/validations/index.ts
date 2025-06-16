@@ -4,7 +4,7 @@ export const giftSchema = z.object({
   name: z.string(),
   description: z.string(),
   price: z.number(),
-  imageUrl: z.string(),
+  image: z.string(),
 });
 
 export type GiftFormValues = z.infer<typeof giftSchema>;

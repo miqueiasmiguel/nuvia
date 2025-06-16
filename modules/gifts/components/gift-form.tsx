@@ -1,36 +1,46 @@
 "use client";
 
+import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { createGift, updateGift } from "../actions";
+import { Gift } from "../types";
 import { GiftFormValues, giftSchema } from "../validations";
 
 interface GiftFormProps {
+  weddingListId: string;
+  gift?: Gift;
   onSuccess?: () => void;
 }
 
-export function GiftForm({ onSuccess }: GiftFormProps) {
+export function GiftForm({ weddingListId, gift, onSuccess }: GiftFormProps) {
+  const router = useRouter();
   const form = useForm<GiftFormValues>({
     resolver: zodResolver(giftSchema),
     defaultValues: {
       name: "",
       description: "",
       price: 0,
-      imageUrl: "",
+      image: "",
     },
   });
 
   function onSubmit(data: GiftFormValues) {
-    // TODO: ação de submit
-    // Exemplo: criarPresente(data)
-    // form.reset();
-    // fechar modal se necessário
-    alert(JSON.stringify(data, null, 2));
+    if (gift) {
+      updateGift(gift.id, data);
+    } else {
+      createGift(data, weddingListId);
+    }
 
+    router.refresh();
+
+    toast.success("Presente salvo com sucesso");
     onSuccess?.();
   }
 
@@ -70,7 +80,12 @@ export function GiftForm({ onSuccess }: GiftFormProps) {
             <FormItem>
               <FormLabel>Valor sugerido</FormLabel>
               <FormControl>
-                <Input placeholder="R$ 0,00" {...field} />
+                <Input
+                  type="number"
+                  placeholder="R$ 0,00"
+                  {...field}
+                  onChange={(e) => field.onChange(e.target.value === "" ? undefined : Number(e.target.value))}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -78,7 +93,7 @@ export function GiftForm({ onSuccess }: GiftFormProps) {
         />
         <FormField
           control={form.control}
-          name="imageUrl"
+          name="image"
           render={({ field }) => (
             <FormItem>
               <FormLabel>URL da imagem</FormLabel>
