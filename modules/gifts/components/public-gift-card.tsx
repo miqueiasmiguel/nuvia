@@ -17,9 +17,11 @@ export function PublicGiftCard({ gift, theme }: { gift: Gift; theme: string }) {
 
   return (
     <Card key={gift.id} className="flex flex-row items-center p-2 sm:p-0 sm:flex-col sm:h-full min-h-[84px]">
-      <div className="w-30 h-30 rounded-md overflow-hidden bg-zinc-100 flex-shrink-0 sm:w-full sm:h-40 sm:rounded-t-md sm:rounded-b-none">
-        <Image src={gift.image ?? ""} alt={gift.name} width={80} height={80} className="object-cover w-full h-full" />
-      </div>
+      {gift.image && (
+        <div className="w-30 h-30 rounded-md overflow-hidden bg-zinc-100 flex-shrink-0 sm:w-full sm:h-40 sm:rounded-t-md sm:rounded-b-none">
+          <Image src={gift.image} alt={gift.name} width={80} height={80} className="object-cover w-full h-full" />
+        </div>
+      )}
       <CardContent className="flex flex-1 flex-col justify-between p-2 sm:p-4 gap-1 sm:gap-2 sm:flex-1">
         <div className="flex items-center justify-between gap-2">
           <h3 className="font-semibold text-sm sm:text-base truncate" title={gift.name}>
