@@ -1,6 +1,6 @@
 "use client";
 
-import { Gift, HandCoins, Settings } from "lucide-react";
+import { Gift, HandCoins } from "lucide-react";
 import Link from "next/link";
 
 import {
@@ -28,11 +28,6 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         title: "Contribuições",
         url: "/dashboard/contributions",
         icon: HandCoins,
-      },
-      {
-        title: "Configurações",
-        url: "/dashboard/settings",
-        icon: Settings,
       },
     ],
   };
