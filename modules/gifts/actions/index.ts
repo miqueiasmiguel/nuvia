@@ -8,10 +8,18 @@ export async function getGiftsByWeddingListId(weddingListId: string): Promise<Gi
   return await GiftsService.getGiftsByWeddingListId(weddingListId);
 }
 
+export async function getPublicGiftsByWeddingListId(weddingListId: string): Promise<Gift[]> {
+  return await GiftsService.getPublicGiftsByWeddingListId(weddingListId);
+}
+
 export async function createGift(data: GiftFormValues, weddingListId: string): Promise<void> {
   await GiftsService.createGift(data, weddingListId);
 }
 
 export async function updateGift(id: string, data: GiftFormValues): Promise<void> {
   await GiftsService.updateGift(id, data);
+}
+
+export async function changeGiftVisibility(id: string, isPublic: boolean): Promise<boolean> {
+  return await GiftsService.changeGiftVisibility(id, isPublic);
 }

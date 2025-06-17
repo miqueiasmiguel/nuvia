@@ -4,6 +4,7 @@ export type Gift = {
   description: string;
   price: number;
   image: string;
+  isPublic: boolean;
   giftedCount: number;
   weddingListId: string;
 };

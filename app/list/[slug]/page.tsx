@@ -1,6 +1,6 @@
 import Image from "next/image";
 
-import { getGiftsByWeddingListId } from "@/modules/gifts/actions";
+import { getPublicGiftsByWeddingListId } from "@/modules/gifts/actions";
 import { PublicGiftCard } from "@/modules/gifts/components/public-gift-card";
 import { getWeddingListBySlug } from "@/modules/wedding-list/actions";
 
@@ -8,7 +8,7 @@ export default async function ListPage({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const weddingList = await getWeddingListBySlug(slug);
   const theme = weddingList.theme ?? "classico";
-  const gifts = await getGiftsByWeddingListId(weddingList.id);
+  const gifts = await getPublicGiftsByWeddingListId(weddingList.id);
 
   return (
     <div

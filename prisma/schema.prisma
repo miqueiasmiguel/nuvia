@@ -99,6 +99,7 @@ model Gift {
   description   String?
   price         Float
   image         String?
+  isPublic      Boolean        @default(true)
   weddingListId String
   weddingList   WeddingList    @relation(fields: [weddingListId], references: [id], onDelete: Cascade)
   contributions Contribution[]
