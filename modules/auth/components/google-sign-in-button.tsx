@@ -21,7 +21,7 @@ export function GoogleSignInButton() {
 
       await authClient.signIn.social({
         provider: "google",
-        callbackURL: callbackUrl || "/dashboard",
+        callbackURL: callbackUrl || "/dashboard/gifts",
       });
     } catch {
       setError("Ocorreu um erro ao tentar fazer login com Google");

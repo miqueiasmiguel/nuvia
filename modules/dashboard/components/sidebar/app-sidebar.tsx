@@ -1,6 +1,6 @@
 "use client";
 
-import { Gift, HandCoins, LayoutDashboard, Settings } from "lucide-react";
+import { Gift, HandCoins, Settings } from "lucide-react";
 import Link from "next/link";
 
 import {
@@ -19,11 +19,6 @@ import { NavUser } from "./nav-user";
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const data = {
     main: [
-      {
-        title: "Visão Geral",
-        url: "/dashboard",
-        icon: LayoutDashboard,
-      },
       {
         title: "Lista de Presentes",
         url: "/dashboard/gifts",
