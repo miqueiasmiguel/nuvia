@@ -1,6 +1,6 @@
 "use client";
 
-import { Pencil, Trash2 } from "lucide-react";
+import { Pencil } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -38,9 +38,6 @@ export function PrivateGiftCard({ gift }: { gift: Gift }) {
               onClick={() => setIsGiftFormOpen(true)}
             >
               <Pencil className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
-            </Button>
-            <Button size="icon" variant="destructive" aria-label="Excluir" className="w-7 h-7 sm:w-8 sm:h-8">
-              <Trash2 className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
             </Button>
           </div>
         </div>
