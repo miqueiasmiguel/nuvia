@@ -1,6 +1,12 @@
+"use client";
+
+import { useEffect, useState } from "react";
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { getWeddingListById } from "@/modules/wedding-list/actions";
 
 import { Gift } from "../types";
+import { generatePixDynamicPayload } from "../utils";
 import { GiftConfirmation } from "./gift-confirmation";
 import { GiftConfirmationForm } from "./gift-confirmation-form";
 
@@ -19,6 +25,24 @@ export function GiftDialog({
   gift: Gift;
   theme?: string;
 }) {
+  const [pixCode, setPixCode] = useState<string | undefined>(undefined);
+
+  useEffect(() => {
+    const fetchWeddingList = async () => {
+      const weddingList = await getWeddingListById(gift.weddingListId);
+      setPixCode(
+        generatePixDynamicPayload({
+          key: weddingList?.pixKey || "",
+          giftName: gift.name,
+          beneficiaryName: weddingList?.brideName || "",
+          beneficiaryCity: "SAO PAULO",
+          value: gift.price,
+        }),
+      );
+    };
+    fetchWeddingList();
+  }, [gift.weddingListId, gift.name, gift.price]);
+
   return (
     <Dialog open={giftDialogOpen} onOpenChange={setGiftDialogOpen}>
       <DialogContent
@@ -41,7 +65,7 @@ export function GiftDialog({
             theme={theme}
           />
         ) : (
-          <GiftConfirmation gift={gift} onConfirmPix={() => setPixConfirmed(true)} theme={theme} />
+          <GiftConfirmation gift={gift} pixCode={pixCode} onConfirmPix={() => setPixConfirmed(true)} theme={theme} />
         )}
       </DialogContent>
     </Dialog>

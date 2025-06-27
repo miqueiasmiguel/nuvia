@@ -6,16 +6,17 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 
+import { Gift } from "../types";
 import { PixQRCode } from "./pix-qrcode";
 
 export function GiftConfirmation({
   gift,
-  pixCode = "00020126360014BR.GOV.BCB.PIX0114+551199999999520400005303986540419.905802BR5920Ana e João6009Sao Paulo62070503***6304B14F",
+  pixCode,
   onCopyPix,
   onConfirmPix,
   theme,
 }: {
-  gift: { name: string; price: number; imageUrl?: string };
+  gift: Gift;
   pixCode?: string;
   onCopyPix?: () => void;
   onConfirmPix?: () => void;
@@ -24,6 +25,7 @@ export function GiftConfirmation({
   const [copied, setCopied] = useState(false);
 
   async function handleCopy() {
+    if (!pixCode) return;
     await navigator.clipboard.writeText(pixCode);
     setCopied(true);
     if (onCopyPix) onCopyPix();
@@ -36,9 +38,9 @@ export function GiftConfirmation({
       style={theme ? { fontFamily: "var(--font-family)" } : undefined}
     >
       <div className="flex flex-col items-center gap-2">
-        {gift.imageUrl && (
+        {gift.image && (
           <Image
-            src={gift.imageUrl}
+            src={gift.image}
             alt={gift.name}
             width={80}
             height={80}
@@ -48,7 +50,7 @@ export function GiftConfirmation({
         <h3 className="font-semibold text-lg text-center">{gift.name}</h3>
         <span className="font-bold text-primary text-xl">R$ {gift.price.toFixed(2)}</span>
       </div>
-      <PixQRCode />
+      {pixCode && <PixQRCode pixCode={pixCode} />}
       <div className="w-full flex flex-col gap-2">
         <Button size="sm" variant="outline" className="w-full" onClick={handleCopy}>
           {copied ? (
