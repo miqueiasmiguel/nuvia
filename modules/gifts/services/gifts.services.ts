@@ -17,6 +17,7 @@ export class GiftsService {
 
     return gifts.map((gift) => ({
       ...gift,
+      isPublic: gift.isPublic,
       price: gift.price.toNumber(),
       giftedCount: gift.contributions.length,
       description: gift.description ?? "",
@@ -37,6 +38,7 @@ export class GiftsService {
 
     return gifts.map((gift) => ({
       ...gift,
+      isPublic: gift.isPublic,
       price: gift.price.toNumber(),
       giftedCount: gift.contributions.length,
       description: gift.description ?? "",
