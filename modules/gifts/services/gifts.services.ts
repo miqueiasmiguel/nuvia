@@ -17,6 +17,7 @@ export class GiftsService {
 
     return gifts.map((gift) => ({
       ...gift,
+      price: gift.price.toNumber(),
       giftedCount: gift.contributions.length,
       description: gift.description ?? "",
       image: gift.image ?? "",
@@ -36,6 +37,7 @@ export class GiftsService {
 
     return gifts.map((gift) => ({
       ...gift,
+      price: gift.price.toNumber(),
       giftedCount: gift.contributions.length,
       description: gift.description ?? "",
       image: gift.image ?? "",

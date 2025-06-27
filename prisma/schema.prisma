@@ -97,7 +97,7 @@ model Gift {
   id            String         @id @default(cuid())
   name          String
   description   String?
-  price         Float
+  price         Decimal
   image         String?
   isPublic      Boolean        @default(true)
   weddingListId String
@@ -114,7 +114,7 @@ model Contribution {
   contributorName  String
   contributorEmail String?
   contributorPhone String?
-  amount           Float
+  amount           Decimal
   message          String?
   isPublic         Boolean
   userConfirmed    Boolean
