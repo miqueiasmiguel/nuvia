@@ -1,4 +1,5 @@
 import { Gift } from "lucide-react";
+import { Suspense } from "react";
 
 import { GoogleSignInButton } from "@/modules/auth/components/google-sign-in-button";
 
@@ -13,7 +14,9 @@ export default function LoginPage() {
             Acesse sua conta para criar ou gerenciar sua lista de presentes de casamento.
           </p>
         </div>
-        <GoogleSignInButton />
+        <Suspense fallback={<div>Carregando...</div>}>
+          <GoogleSignInButton />
+        </Suspense>
       </div>
     </main>
   );
