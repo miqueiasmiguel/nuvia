@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { WeddingSettingsForm } from "@/modules/wedding-list/components/wedding-settings-form";
 
 export default async function SettingsPage() {
@@ -6,7 +8,9 @@ export default async function SettingsPage() {
       <div className="w-full max-w-2xl px-4">
         <h2 className="text-lg font-semibold mb-2">Configurações da Lista de Presentes</h2>
         <div className="space-y-4">
-          <WeddingSettingsForm />
+          <Suspense fallback={<div>Carregando...</div>}>
+            <WeddingSettingsForm />
+          </Suspense>
         </div>
       </div>
     </section>

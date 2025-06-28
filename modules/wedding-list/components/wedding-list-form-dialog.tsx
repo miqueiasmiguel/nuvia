@@ -1,3 +1,5 @@
+import { Suspense } from "react";
+
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 import { WeddingList } from "../types";
@@ -18,7 +20,9 @@ export function WeddingListFormDialog({
         <DialogHeader>
           <DialogTitle>Configurar Lista de Presentes</DialogTitle>
         </DialogHeader>
-        <WeddingSettingsForm weddingList={weddingList} onSuccess={() => onOpenChange(false)} />
+        <Suspense fallback={<div>Carregando...</div>}>
+          <WeddingSettingsForm weddingList={weddingList} onSuccess={() => onOpenChange(false)} />
+        </Suspense>
       </DialogContent>
     </Dialog>
   );
