@@ -2,7 +2,7 @@ import QRCode from "qrcode";
 import { v4 as uuidv4 } from "uuid";
 
 const generateTxid = (): string => {
-  return `GIFT_${uuidv4().replace(/-/g, "")}`.substring(0, 35);
+  return `GIFT${uuidv4().replace(/-/g, "")}`.substring(0, 25);
 };
 
 export function validateTxid(txid: string): boolean {
@@ -41,7 +41,7 @@ export function generatePixDynamicPayload(params: PixDynamicParams): string {
     .trim();
 
   if (params.key.length > 77) throw new Error("Chave PIX muito longa");
-  if (txid.length > 35) throw new Error("TXID muito longo");
+  if (txid.length > 25) throw new Error("TXID muito longo");
 
   const payload = [
     genEMV("00", "01"),
