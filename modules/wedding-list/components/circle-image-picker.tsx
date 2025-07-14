@@ -140,8 +140,10 @@ export function CircleImagePicker({ value, onChange }: Props) {
               />
             </div>
             <div className="flex gap-2">
-              <Button onClick={handleCropComplete}>Cortar</Button>
-              <Button variant="outline" onClick={() => setCropping(false)}>
+              <Button type="button" onClick={handleCropComplete}>
+                Cortar
+              </Button>
+              <Button type="button" variant="outline" onClick={() => setCropping(false)}>
                 Cancelar
               </Button>
             </div>
