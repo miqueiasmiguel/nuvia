@@ -1,12 +1,20 @@
 import { headers } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
+import { match } from "path-to-regexp";
 
 import { auth } from "./lib/auth";
 
-const publicRoutes = ["/", "/login"];
+const publicRoutes = ["/", "/login", "/list/:slug"];
+
+function isPublicRoute(pathname: string) {
+  return publicRoutes.some((pattern) => {
+    const matcher = match(pattern);
+    return matcher(pathname) !== false;
+  });
+}
 
 export async function middleware(request: NextRequest) {
-  if (publicRoutes.some((route) => request.nextUrl.pathname === route)) {
+  if (isPublicRoute(request.nextUrl.pathname)) {
     return NextResponse.next();
   }
 
