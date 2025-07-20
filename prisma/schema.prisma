@@ -92,7 +92,6 @@ model WeddingList {
   theme         String
   user          User?
   gifts         Gift[]
-  contributions Contribution[]
   createdAt     DateTime       @default(now())
   updatedAt     DateTime       @updatedAt
 
@@ -117,23 +116,13 @@ model Gift {
 
 model Contribution {
   id               String      @id @default(cuid())
-  contributorName  String
-  contributorEmail String?
-  contributorPhone String?
+  name             String
+  phone            String?
   amount           Decimal
   message          String?
   isPublic         Boolean
-  userConfirmed    Boolean
-  confirmedAt      DateTime?
-  proofImageUrl    String?
-  proofFileName    String?
-  pixKey           String
-  pixKeyType       PixType
-  qrCodeData       String?
-  weddingListId    String
-  weddingList      WeddingList @relation(fields: [weddingListId], references: [id], onDelete: Cascade)
-  giftId           String?
-  gift             Gift?       @relation(fields: [giftId], references: [id], onDelete: SetNull)
+  giftId           String
+  gift             Gift        @relation(fields: [giftId], references: [id], onDelete: Cascade)
   createdAt        DateTime    @default(now())
   updatedAt        DateTime    @updatedAt
 

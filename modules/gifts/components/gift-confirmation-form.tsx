@@ -1,56 +1,50 @@
 "use client";
-import { useRef } from "react";
+
+import { useState } from "react";
 import { useForm } from "react-hook-form";
-import { z } from "zod";
+import { toast } from "sonner";
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
+import { ContributionFormValues, contributionSchema } from "@/modules/contributions/validations";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-const confirmationSchema = z.object({
-  name: z.string().min(1, "Informe seu nome"),
-  email: z.string().email("E-mail inválido").optional().or(z.literal("")),
-  whatsapp: z.string().optional(),
-  message: z.string().optional(),
-  isPublic: z.boolean().optional(),
-  proof: z.any().optional(),
-  confirmPix: z.boolean(),
-});
-
-type ConfirmationFormValues = z.infer<typeof confirmationSchema>;
+import { createContribution } from "../actions";
+import { Gift } from "../types";
 
 export function GiftConfirmationForm({
-  pixValue,
-  giftName,
+  gift,
   onSuccess,
   onCancel,
   theme,
 }: {
-  pixValue: number;
-  giftName: string;
+  gift: Gift;
   onSuccess: () => void;
   onCancel: () => void;
   theme?: string;
 }) {
-  const fileInputRef = useRef<HTMLInputElement>(null);
-  const form = useForm<ConfirmationFormValues>({
-    resolver: zodResolver(confirmationSchema),
+  const [confirmed, setConfirmed] = useState(false);
+
+  const form = useForm<ContributionFormValues>({
+    resolver: zodResolver(contributionSchema),
     defaultValues: {
       name: "",
-      email: "",
-      whatsapp: "",
+      phone: "",
+      amount: gift.price,
       message: "",
-      isPublic: false,
-      proof: undefined,
-      confirmPix: false,
+      isPublic: true,
+      giftId: gift.id,
     },
   });
 
-  function onSubmit(data: ConfirmationFormValues) {
-    onSuccess();
+  function onSubmit(data: ContributionFormValues) {
+    createContribution(data);
+
+    toast.success("Presente confirmado com sucesso");
+    onSuccess?.();
   }
 
   return (
@@ -75,20 +69,7 @@ export function GiftConfirmationForm({
         />
         <FormField
           control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>E-mail</FormLabel>
-              <FormControl>
-                <Input placeholder="email@exemplo.com" type="email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="whatsapp"
+          name="phone"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Whatsapp</FormLabel>
@@ -124,45 +105,21 @@ export function GiftConfirmationForm({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="proof"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Comprovante</FormLabel>
-              <FormControl>
-                <Input
-                  type="file"
-                  accept="image/*,application/pdf"
-                  ref={fileInputRef}
-                  onChange={(e) => field.onChange(e.target.files?.[0])}
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="confirmPix"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-center gap-2">
-              <FormControl>
-                <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-              </FormControl>
-              <FormLabel className="mb-0">
-                Confirmo que realizei um PIX de R$ {pixValue.toFixed(2)} referente ao presente &quot;
-                {giftName}&quot;
-              </FormLabel>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex flex-row items-center gap-2 mb-4">
+          <Checkbox
+            checked={confirmed}
+            onCheckedChange={(checked) => setConfirmed(checked === "indeterminate" ? false : checked)}
+          />
+          <FormLabel className="mb-0">
+            Confirmo que realizei um PIX de R$ {gift.price.toFixed(2)} referente ao presente &quot;
+            {gift.name}&quot;
+          </FormLabel>
+        </div>
         <div className="flex flex-row gap-2 justify-between">
           <Button type="button" variant="outline" onClick={onCancel}>
             Voltar
           </Button>
-          <Button type="submit" disabled={form.formState.isSubmitting}>
+          <Button type="submit" disabled={form.formState.isSubmitting || !confirmed}>
             Confirmar
           </Button>
         </div>

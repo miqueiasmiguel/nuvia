@@ -1,5 +1,6 @@
 "use client";
 
+import { MessageCircleMore } from "lucide-react";
 import Image from "next/image";
 import { useState } from "react";
 
@@ -22,31 +23,33 @@ export function PublicGiftCard({ gift, theme }: { gift: Gift; theme: string }) {
           <Image src={gift.image} alt={gift.name} width={80} height={80} className="object-cover w-full h-full" />
         </div>
       )}
-      <CardContent className="flex flex-1 flex-col justify-between p-2 sm:p-4 gap-1 sm:gap-2 sm:flex-1">
+      <CardContent className="flex flex-1 flex-col justify-between p-0 sm:px-4 sm:pb-2 sm:w-full gap-1 sm:gap-2 sm:flex-1">
         <div className="flex items-center justify-between gap-2">
           <h3 className="font-semibold text-sm sm:text-base truncate" title={gift.name}>
             {gift.name}
           </h3>
+          {gift.giftedCount > 0 && (
+            <Button
+              size="sm"
+              variant="ghost"
+              className="text-xs p-0 h-auto"
+              onClick={() => setCommentsDialogOpen(true)}
+            >
+              <MessageCircleMore />
+            </Button>
+          )}
         </div>
         <p className="text-xs sm:text-sm text-zinc-500 line-clamp-2">{gift.description}</p>
         <div className="flex items-center justify-between pt-1 sm:pt-2">
           <span className="font-bold text-primary text-base sm:text-lg">R$ {gift.price.toFixed(2)}</span>
         </div>
-        <span className="text-xs text-zinc-500 mt-1">
-          {gift.giftedCount > 0
-            ? `${gift.giftedCount} pessoa${gift.giftedCount > 1 ? "s" : ""} já presentearam`
-            : "Seja o primeiro a presentear"}
-        </span>
-        {gift.giftedCount > 1 && (
-          <Button
-            size="sm"
-            variant="ghost"
-            className="text-xs px-2 py-1 mt-1"
-            onClick={() => setCommentsDialogOpen(true)}
-          >
-            Visualizar comentários
-          </Button>
-        )}
+        <div className="flex items-center gap-2 mt-1">
+          <span className="text-xs text-zinc-500">
+            {gift.giftedCount > 0
+              ? `${gift.giftedCount} pessoa${gift.giftedCount > 1 ? "s" : ""} já presente${gift.giftedCount > 1 ? "aram" : "ou"}`
+              : "Seja o primeiro a presentear"}
+          </span>
+        </div>
         <div className="flex gap-1 sm:gap-2">
           <Button
             size="sm"
@@ -59,7 +62,12 @@ export function PublicGiftCard({ gift, theme }: { gift: Gift; theme: string }) {
           </Button>
         </div>
       </CardContent>
-      <CommentsDialog commentsDialogOpen={commentsDialogOpen} setCommentsDialogOpen={setCommentsDialogOpen} />
+      <CommentsDialog
+        giftId={gift.id}
+        theme={theme}
+        commentsDialogOpen={commentsDialogOpen}
+        setCommentsDialogOpen={setCommentsDialogOpen}
+      />
       <GiftDialog
         giftDialogOpen={giftDialogOpen}
         setGiftDialogOpen={setGiftDialogOpen}

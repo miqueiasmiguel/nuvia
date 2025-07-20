@@ -22,6 +22,10 @@ export class GiftsService {
       giftedCount: gift.contributions.length,
       description: gift.description ?? "",
       image: gift.image ?? "",
+      contributions: gift.contributions.map((contribution) => ({
+        ...contribution,
+        amount: contribution.amount.toNumber(),
+      })),
     }));
   }
 
@@ -43,6 +47,10 @@ export class GiftsService {
       giftedCount: gift.contributions.length,
       description: gift.description ?? "",
       image: gift.image ?? "",
+      contributions: gift.contributions.map((contribution) => ({
+        ...contribution,
+        amount: contribution.amount.toNumber(),
+      })),
     }));
   }
 

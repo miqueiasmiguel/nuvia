@@ -54,8 +54,7 @@ export function GiftDialog({
         </DialogHeader>
         {pixConfirmed ? (
           <GiftConfirmationForm
-            pixValue={gift.price}
-            giftName={gift.name}
+            gift={gift}
             onSuccess={() => {
               setGiftDialogOpen(false);
             }}
