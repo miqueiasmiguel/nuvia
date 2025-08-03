@@ -52,6 +52,7 @@ export class WeddingListService {
     return await prisma.weddingList.create({
       data: {
         ...data,
+        coverImage: data.coverImage?.toString(),
         weddingDate: data.weddingDate ? new Date(data.weddingDate) : undefined,
         slug: await this.generateSlug(`${data.brideName}-${data.groomName}`),
         user: {
@@ -70,6 +71,7 @@ export class WeddingListService {
       },
       data: {
         ...data,
+        coverImage: data.coverImage?.toString(),
         weddingDate: data.weddingDate ? new Date(data.weddingDate) : undefined,
       },
     });

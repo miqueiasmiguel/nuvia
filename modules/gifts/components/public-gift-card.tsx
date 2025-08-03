@@ -6,6 +6,7 @@ import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
+import { getImageUrl } from "@/lib/s3-client";
 
 import { Gift } from "../types";
 import { CommentsDialog } from "./comments-dialog";
@@ -19,8 +20,16 @@ export function PublicGiftCard({ gift, theme }: { gift: Gift; theme: string }) {
   return (
     <Card key={gift.id} className="flex flex-row items-center p-2 sm:p-0 sm:flex-col sm:h-full min-h-[84px]">
       {gift.image && (
-        <div className="w-30 h-30 rounded-md overflow-hidden bg-zinc-100 flex-shrink-0 sm:w-full sm:h-40 sm:rounded-t-md sm:rounded-b-none">
-          <Image src={gift.image} alt={gift.name} width={80} height={80} className="object-cover w-full h-full" />
+        <div className="w-30 h-30 rounded-md overflow-hidden bg-zinc-100 flex-shrink-0 sm:w-full sm:h-48 sm:rounded-t-md sm:rounded-b-none">
+          <Image
+            src={getImageUrl(gift.image) ?? ""}
+            alt={gift.name}
+            width={320}
+            height={320}
+            sizes="(max-width: 640px) 120px, 320px"
+            quality={85}
+            className="object-contain w-full h-full"
+          />
         </div>
       )}
       <CardContent className="flex flex-1 flex-col justify-between p-0 sm:px-4 sm:pb-2 sm:w-full gap-1 sm:gap-2 sm:flex-1">

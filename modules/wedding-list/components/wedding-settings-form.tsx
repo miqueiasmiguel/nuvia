@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { createWeddingList, updateWeddingList } from "../actions";
 import { PixType, WeddingList } from "../types";
-import { WeddingSettingsFormValues, weddingSettingsSchema } from "../validations";
+import { dataURLToFile, WeddingSettingsFormValues, weddingSettingsSchema } from "../validations";
 import { CircleImagePicker } from "./circle-image-picker";
 
 interface WeddingSettingsFormProps {
@@ -33,7 +33,7 @@ export function WeddingSettingsForm({ weddingList, onSuccess }: WeddingSettingsF
       groomName: weddingList?.groomName ?? "",
       weddingDate: weddingList?.weddingDate?.toISOString().split("T")[0] ?? "",
       message: weddingList?.message ?? "",
-      coverImage: weddingList?.coverImage ?? "",
+      coverImage: weddingList?.coverImage && weddingList.coverImage.trim() !== "" ? weddingList.coverImage : undefined,
       pixKey: weddingList?.pixKey ?? "",
       pixType: weddingList?.pixType ?? undefined,
       theme: weddingList?.theme ?? undefined,
@@ -41,21 +41,35 @@ export function WeddingSettingsForm({ weddingList, onSuccess }: WeddingSettingsF
   });
 
   async function onSubmit(data: WeddingSettingsFormValues) {
-    if (weddingList) {
-      await updateWeddingList(weddingList.id, data);
-    } else {
-      await createWeddingList(data);
+    try {
+      // Converte coverImage de string DataURL para File se necessário
+      if (data.coverImage && typeof data.coverImage === "string" && data.coverImage.startsWith("data:")) {
+        // Verifica se a DataURL não é muito grande (aproximadamente 5MB)
+        if (data.coverImage.length > 5 * 1024 * 1024) {
+          toast.error("Imagem muito grande. Por favor, selecione uma imagem menor.");
+          return;
+        }
+        data.coverImage = await dataURLToFile(data.coverImage, "cover-image.jpg");
+      }
+
+      if (weddingList) {
+        await updateWeddingList(weddingList.id, data);
+      } else {
+        await createWeddingList(data);
+      }
+
+      if (callbackUrl) {
+        router.push(callbackUrl);
+      } else {
+        router.push("/dashboard/gifts");
+      }
+
+      onSuccess?.();
+
+      toast.success("Lista de presentes salva com sucesso");
+    } catch {
+      toast.error("Erro ao salvar lista de presentes");
     }
-
-    if (callbackUrl) {
-      router.push(callbackUrl);
-    } else {
-      router.push("/dashboard/gifts");
-    }
-
-    onSuccess?.();
-
-    toast.success("Lista de presentes salva com sucesso");
   }
 
   return (
@@ -126,7 +140,10 @@ export function WeddingSettingsForm({ weddingList, onSuccess }: WeddingSettingsF
             <FormItem>
               <FormLabel>Imagem de capa</FormLabel>
               <FormControl>
-                <CircleImagePicker value={field.value} onChange={field.onChange} />
+                <CircleImagePicker
+                  value={typeof field.value === "string" ? field.value : undefined}
+                  onChange={field.onChange}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

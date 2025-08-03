@@ -7,11 +7,15 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "source.unsplash.com",
       },
+      {
+        protocol: "https",
+        hostname: process.env.NEXT_PUBLIC_R2_PUBLIC_HOSTNAME!,
+      },
     ],
   },
   experimental: {
     serverActions: {
-      bodySizeLimit: "2mb",
+      bodySizeLimit: "10mb",
     },
   },
 };

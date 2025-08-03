@@ -1,8 +1,10 @@
 "use client";
+import Image from "next/image";
 import { useRef, useState } from "react";
 import Cropper from "react-easy-crop";
 
 import { Button } from "@/components/ui/button";
+import { getImageUrl } from "@/lib/s3-client";
 
 type CroppedAreaPixels = { width: number; height: number; x: number; y: number };
 
@@ -73,7 +75,8 @@ export function CircleImagePicker({ value, onChange }: Props) {
     );
     ctx.restore();
 
-    return canvas.toDataURL("image/png");
+    // Comprime a imagem para reduzir o tamanho
+    return canvas.toDataURL("image/jpeg", 0.7);
   }
 
   async function handleCropComplete() {
@@ -81,6 +84,8 @@ export function CircleImagePicker({ value, onChange }: Props) {
     setCropping(false);
     if (cropped) onChange(cropped);
   }
+
+  const imageUrl = value ? getImageUrl(value) : null;
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -103,8 +108,16 @@ export function CircleImagePicker({ value, onChange }: Props) {
         role="button"
         aria-label="Selecionar imagem"
       >
-        {value ? (
-          <img src={value} alt="Imagem selecionada" className="w-full h-full object-cover" />
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt="Imagem selecionada"
+            width={384}
+            height={384}
+            sizes="96px"
+            quality={85}
+            className="object-cover w-full h-full"
+          />
         ) : (
           <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xs text-zinc-400">
             Selecionar imagem

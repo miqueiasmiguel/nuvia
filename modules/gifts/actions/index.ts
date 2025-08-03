@@ -1,5 +1,6 @@
 "use server";
 
+import { uploadImage } from "@/lib/s3-client";
 import { ContributionsService } from "@/modules/contributions/services/contributions.service";
 import { ContributionFormValues } from "@/modules/contributions/validations";
 
@@ -16,10 +17,18 @@ export async function getPublicGiftsByWeddingListId(weddingListId: string): Prom
 }
 
 export async function createGift(data: GiftFormValues, weddingListId: string): Promise<void> {
+  // Se image é um File, faz upload. Se é string, mantém como está
+  if (data.image && typeof data.image !== "string") {
+    data.image = await uploadImage(data.image);
+  }
   await GiftsService.createGift(data, weddingListId);
 }
 
 export async function updateGift(id: string, data: GiftFormValues): Promise<void> {
+  // Se image é um File, faz upload. Se é string, mantém como está
+  if (data.image && typeof data.image !== "string") {
+    data.image = await uploadImage(data.image);
+  }
   await GiftsService.updateGift(id, data);
 }
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 
 import { Button } from "@/components/ui/button";
+import { getImageUrl } from "@/lib/s3-client";
 
 import { Gift } from "../types";
 import { PixQRCode } from "./pix-qrcode";
@@ -40,10 +41,12 @@ export function GiftConfirmation({
       <div className="flex flex-col items-center gap-2">
         {gift.image && (
           <Image
-            src={gift.image}
+            src={getImageUrl(gift.image) ?? ""}
             alt={gift.name}
-            width={80}
-            height={80}
+            width={320}
+            height={320}
+            sizes="80px"
+            quality={85}
             className="rounded-md object-cover w-20 h-20 border"
           />
         )}

@@ -1,19 +1,21 @@
 "use client";
+import Image from "next/image";
 import { useRef, useState } from "react";
 import Cropper from "react-easy-crop";
 
 import { Button } from "@/components/ui/button";
+import { getImageUrl } from "@/lib/s3-client";
 
 type CroppedAreaPixels = { width: number; height: number; x: number; y: number };
 
 type Props = {
-  value?: string;
+  value?: string | File;
   onChange: (cropped: string) => void;
 };
 
 export function SquareImagePicker({ value, onChange }: Props) {
   const inputRef = useRef<HTMLInputElement>(null);
-  const [image, setImage] = useState<string | null>(value ?? null);
+  const [image, setImage] = useState<string | null>(typeof value === "string" ? value : null);
   const [crop, setCrop] = useState<{ x: number; y: number }>({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
   const [cropping, setCropping] = useState(false);
@@ -66,7 +68,7 @@ export function SquareImagePicker({ value, onChange }: Props) {
       size,
     );
 
-    return canvas.toDataURL("image/png");
+    return canvas.toDataURL("image/jpeg", 0.7);
   }
 
   async function handleCropComplete() {
@@ -74,6 +76,8 @@ export function SquareImagePicker({ value, onChange }: Props) {
     setCropping(false);
     if (cropped) onChange(cropped);
   }
+
+  const imageUrl = typeof value === "string" && value ? getImageUrl(value) : null;
 
   return (
     <div className="flex flex-col items-center gap-2">
@@ -96,8 +100,16 @@ export function SquareImagePicker({ value, onChange }: Props) {
         role="button"
         aria-label="Selecionar imagem"
       >
-        {value ? (
-          <img src={value} alt="Imagem selecionada" className="w-full h-full object-cover" />
+        {imageUrl ? (
+          <Image
+            src={imageUrl}
+            alt="Imagem selecionada"
+            width={384}
+            height={384}
+            sizes="96px"
+            quality={85}
+            className="object-cover w-full h-full"
+          />
         ) : (
           <span className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 text-xs text-zinc-400">
             Selecionar imagem

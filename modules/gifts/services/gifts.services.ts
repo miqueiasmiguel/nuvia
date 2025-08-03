@@ -58,6 +58,7 @@ export class GiftsService {
     await prisma.gift.create({
       data: {
         ...data,
+        image: data.image?.toString(),
         weddingListId,
       },
     });
@@ -66,7 +67,10 @@ export class GiftsService {
   static async updateGift(id: string, data: GiftFormValues): Promise<void> {
     await prisma.gift.update({
       where: { id },
-      data,
+      data: {
+        ...data,
+        image: data.image?.toString(),
+      },
     });
   }
 

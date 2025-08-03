@@ -20,7 +20,10 @@ export default async function GiftsPage() {
   const theme = weddingList.theme ?? "classico";
 
   return (
-    <section className={`theme-${theme} mb-4`} style={{ fontFamily: "var(--font-family)" }}>
+    <section
+      className={`theme-${theme} max-w-3xl mx-auto py-8 px-2 flex flex-col gap-8`}
+      style={{ fontFamily: "var(--font-family)" }}
+    >
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-4 w-full">
         <h2 className="text-lg font-semibold break-words">Lista de Presentes</h2>
         <WeddingListActions weddingList={weddingList} />

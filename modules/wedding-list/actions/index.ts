@@ -3,6 +3,7 @@
 import { headers } from "next/headers";
 
 import { auth } from "@/lib/auth";
+import { uploadImage } from "@/lib/s3-client";
 
 import { WeddingListService } from "../services/wedding-list.service";
 import { WeddingSettingsFormValues } from "../validations";
@@ -24,6 +25,10 @@ export async function createWeddingList(data: WeddingSettingsFormValues) {
     throw new Error("Unauthorized");
   }
 
+  if (data.coverImage && typeof data.coverImage !== "string") {
+    data.coverImage = await uploadImage(data.coverImage);
+  }
+
   const weddingList = await WeddingListService.createWeddingList(data, session.user.id);
 
   return weddingList;
@@ -36,6 +41,11 @@ export async function updateWeddingList(id: string, data: WeddingSettingsFormVal
 
   if (!session) {
     throw new Error("Unauthorized");
+  }
+
+  // Se coverImage é um File, faz upload. Se é string, mantém como está
+  if (data.coverImage && typeof data.coverImage !== "string") {
+    data.coverImage = await uploadImage(data.coverImage);
   }
 
   const weddingList = await WeddingListService.updateWeddingList(id, data);

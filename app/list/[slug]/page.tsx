@@ -1,5 +1,6 @@
 import Image from "next/image";
 
+import { getImageUrl } from "@/lib/s3-client";
 import { getPublicGiftsByWeddingListId } from "@/modules/gifts/actions";
 import { PublicGiftCard } from "@/modules/gifts/components/public-gift-card";
 import { getWeddingListBySlug } from "@/modules/wedding-list/actions";
@@ -18,7 +19,7 @@ export default async function ListPage({ params }: { params: Promise<{ slug: str
       <div className="flex flex-col items-center gap-3 text-center">
         <div className="w-24 h-24 rounded-full overflow-hidden border-4 border-primary shadow">
           <Image
-            src={weddingList.coverImage ?? ""}
+            src={getImageUrl(weddingList.coverImage) ?? ""}
             alt={`${weddingList.brideName} & ${weddingList.groomName}`}
             width={96}
             height={96}

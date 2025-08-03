@@ -12,7 +12,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 
 import { createGift, updateGift } from "../actions";
 import { Gift } from "../types";
-import { GiftFormValues, giftSchema } from "../validations";
+import { dataURLToFile, GiftFormValues, giftSchema } from "../validations";
 
 interface GiftFormProps {
   weddingListId: string;
@@ -32,17 +32,30 @@ export function GiftForm({ weddingListId, gift, onSuccess }: GiftFormProps) {
     },
   });
 
-  function onSubmit(data: GiftFormValues) {
-    if (gift) {
-      updateGift(gift.id, data);
-    } else {
-      createGift(data, weddingListId);
+  async function onSubmit(data: GiftFormValues) {
+    try {
+      // Converte image de string DataURL para File se necessário
+      if (data.image && typeof data.image === "string" && data.image.startsWith("data:")) {
+        // Verifica se a DataURL não é muito grande (aproximadamente 5MB)
+        if (data.image.length > 5 * 1024 * 1024) {
+          toast.error("Imagem muito grande. Por favor, selecione uma imagem menor.");
+          return;
+        }
+        data.image = await dataURLToFile(data.image, "gift-image.jpg");
+      }
+
+      if (gift) {
+        await updateGift(gift.id, data);
+      } else {
+        await createGift(data, weddingListId);
+      }
+
+      router.refresh();
+      toast.success("Presente salvo com sucesso");
+      onSuccess?.();
+    } catch {
+      toast.error("Erro ao salvar presente");
     }
-
-    router.refresh();
-
-    toast.success("Presente salvo com sucesso");
-    onSuccess?.();
   }
 
   return (
@@ -99,7 +112,10 @@ export function GiftForm({ weddingListId, gift, onSuccess }: GiftFormProps) {
             <FormItem>
               <FormLabel>Imagem do presente</FormLabel>
               <FormControl>
-                <SquareImagePicker value={field.value} onChange={field.onChange} />
+                <SquareImagePicker
+                  value={typeof field.value === "string" ? field.value : undefined}
+                  onChange={field.onChange}
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
