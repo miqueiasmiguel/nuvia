@@ -33,7 +33,11 @@ export class GiftsService {
     const gifts = await prisma.gift.findMany({
       where: { weddingListId, isPublic: true },
       include: {
-        contributions: true,
+        contributions: {
+          where: {
+            isPublic: true,
+          },
+        },
       },
       orderBy: {
         createdAt: "desc",
